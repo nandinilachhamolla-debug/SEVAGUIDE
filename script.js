@@ -32,16 +32,21 @@ const detailsBtn2 = document.getElementById("detailsBtn2");
 
 
 // ========================================
-// SHOW PAGE FUNCTION
+// SHOW PAGE
 // ========================================
 
 function showPage(page) {
 
-    home.classList.remove("active");
-    finder.classList.remove("active");
-    questions.classList.remove("active");
-    results.classList.remove("active");
-    details.classList.remove("active");
+    if (!page) return;
+
+    [home, finder, questions, results, details]
+        .forEach(function (section) {
+
+            if (section) {
+                section.classList.remove("active");
+            }
+
+        });
 
     page.classList.add("active");
 
@@ -56,22 +61,30 @@ function showPage(page) {
 // HOME → FINDER
 // ========================================
 
-startBtn.addEventListener("click", function () {
+if (startBtn) {
 
-    showPage(finder);
+    startBtn.addEventListener("click", function () {
 
-});
+        showPage(finder);
+
+    });
+
+}
 
 
 // ========================================
 // FINDER → HOME
 // ========================================
 
-backHome.addEventListener("click", function () {
+if (backHome) {
 
-    showPage(home);
+    backHome.addEventListener("click", function () {
 
-});
+        showPage(home);
+
+    });
+
+}
 
 
 // ========================================
@@ -81,14 +94,12 @@ backHome.addEventListener("click", function () {
 const serviceCards =
     document.querySelectorAll(".service-card");
 
-
 serviceCards.forEach(function (card) {
 
     card.addEventListener("click", function () {
 
         const service =
             card.getAttribute("data-service");
-
 
         if (service === "scholarship") {
 
@@ -108,6 +119,135 @@ serviceCards.forEach(function (card) {
 
 
 // ========================================
+// QUESTIONS → FINDER
+// ========================================
+
+if (backFinder) {
+
+    backFinder.addEventListener("click", function () {
+
+        showPage(finder);
+
+    });
+
+}
+
+
+// ========================================
+// QUESTIONS → RESULTS
+// ========================================
+
+if (findBtn) {
+
+    findBtn.addEventListener("click", function () {
+
+        const educationElement =
+            document.getElementById("education");
+
+        const stateElement =
+            document.getElementById("state");
+
+        const education =
+            educationElement
+                ? educationElement.value
+                : "";
+
+        const state =
+            stateElement
+                ? stateElement.value
+                : "";
+
+        if (education === "") {
+
+            alert(
+                "Please select your education level."
+            );
+
+            return;
+
+        }
+
+        if (state === "") {
+
+            alert(
+                "Please select your state."
+            );
+
+            return;
+
+        }
+
+        showPage(results);
+
+    });
+
+}
+
+
+// ========================================
+// RESULTS → QUESTIONS
+// ========================================
+
+if (backQuestions) {
+
+    backQuestions.addEventListener("click", function () {
+
+        showPage(questions);
+
+    });
+
+}
+
+
+// ========================================
+// RESULTS → DETAILS
+// ========================================
+
+if (detailsBtn) {
+
+    detailsBtn.addEventListener("click", function () {
+
+        showPage(details);
+
+    });
+
+}
+
+if (detailsBtn2) {
+
+    detailsBtn2.addEventListener("click", function () {
+
+        showPage(details);
+
+    });
+
+}
+
+
+// ========================================
+// DETAILS → RESULTS
+// ========================================
+
+if (backResults) {
+
+    backResults.addEventListener("click", function () {
+
+        showPage(results);
+
+    });
+
+}
+
+
+// ========================================
+// LIVE RENDER BACKEND
+// ========================================
+
+const API_BASE_URL =
+    "https://sevaguide.onrender.com";
+
+
+// ========================================
 // AI GUIDANCE FUNCTION
 // ========================================
 
@@ -116,7 +256,7 @@ async function getAIGuidance(message) {
     try {
 
         const response = await fetch(
-            "http://localhost:3000/api/ai-guide",
+            API_BASE_URL + "/api/ai-guide",
             {
                 method: "POST",
 
@@ -130,9 +270,8 @@ async function getAIGuidance(message) {
             }
         );
 
-
-        const data = await response.json();
-
+        const data =
+            await response.json();
 
         if (!response.ok) {
 
@@ -141,7 +280,6 @@ async function getAIGuidance(message) {
             );
 
         }
-
 
         return data;
 
@@ -152,13 +290,12 @@ async function getAIGuidance(message) {
             error
         );
 
-
         return {
 
             success: false,
 
             error:
-                "Unable to connect to SevaGuide AI. Please make sure the backend server is running."
+                "Unable to connect to SevaGuide AI. Please try again."
 
         };
 
@@ -181,22 +318,12 @@ function displayAIResult(data) {
 
     }
 
-
-    // Save AI result for later use
-
     window.sevaGuideAIResult = data;
-
-
-    // Move user to results page
 
     showPage(results);
 
-
-    // Find the first result card
-
     const firstResultCard =
         document.querySelector(".result-card");
-
 
     if (!firstResultCard) {
 
@@ -205,12 +332,12 @@ function displayAIResult(data) {
     }
 
 
-    // Update category
+    // CATEGORY
 
     const tag =
         firstResultCard.querySelector(".result-tag");
 
-    if (tag) {
+    if (tag && data.category) {
 
         tag.textContent =
             data.category.toUpperCase();
@@ -218,12 +345,12 @@ function displayAIResult(data) {
     }
 
 
-    // Update title
+    // TITLE
 
     const title =
         firstResultCard.querySelector("h3");
 
-    if (title) {
+    if (title && data.title) {
 
         title.textContent =
             data.title;
@@ -231,12 +358,12 @@ function displayAIResult(data) {
     }
 
 
-    // Update match badge
+    // MATCH BADGE
 
     const badge =
         firstResultCard.querySelector(".match-badge");
 
-    if (badge) {
+    if (badge && data.confidence) {
 
         badge.textContent =
             data.confidence;
@@ -244,23 +371,20 @@ function displayAIResult(data) {
     }
 
 
-    // Update explanation section
+    // WHY MATCH
 
     const whyMatch =
         firstResultCard.querySelector(".why-match");
 
-
     if (whyMatch) {
 
         whyMatch.innerHTML = "";
-
 
         const heading =
             document.createElement("h4");
 
         heading.textContent =
             "🤖 Why SevaGuide suggested this";
-
 
         whyMatch.appendChild(heading);
 
@@ -269,8 +393,7 @@ function displayAIResult(data) {
             document.createElement("p");
 
         explanation.textContent =
-            data.explanation;
-
+            data.explanation || "";
 
         explanation.style.color =
             "#697386";
@@ -281,11 +404,10 @@ function displayAIResult(data) {
         explanation.style.marginBottom =
             "15px";
 
-
         whyMatch.appendChild(explanation);
 
 
-        // AI next questions
+        // NEXT QUESTIONS
 
         if (
             data.nextQuestions &&
@@ -295,10 +417,8 @@ function displayAIResult(data) {
             const questionContainer =
                 document.createElement("div");
 
-
             questionContainer.className =
                 "match-points";
-
 
             data.nextQuestions.forEach(
                 function (question) {
@@ -309,14 +429,12 @@ function displayAIResult(data) {
                     questionElement.textContent =
                         "❓ " + question;
 
-
                     questionContainer.appendChild(
                         questionElement
                     );
 
                 }
             );
-
 
             whyMatch.appendChild(
                 questionContainer
@@ -327,13 +445,15 @@ function displayAIResult(data) {
     }
 
 
-    // Update next-step information
+    // RESULT INFORMATION
 
     const infoBoxes =
         firstResultCard.querySelectorAll(
             ".result-info > div"
         );
 
+
+    // NEXT STEP
 
     if (
         infoBoxes.length > 0 &&
@@ -343,18 +463,30 @@ function displayAIResult(data) {
         const firstInfo =
             infoBoxes[0];
 
+        const strong =
+            firstInfo.querySelector("strong");
 
-        firstInfo.querySelector("strong")
-            .textContent =
-            "Next Step";
+        const paragraph =
+            firstInfo.querySelector("p");
 
+        if (strong) {
 
-        firstInfo.querySelector("p")
-            .textContent =
-            data.nextStep;
+            strong.textContent =
+                "Next Step";
+
+        }
+
+        if (paragraph) {
+
+            paragraph.textContent =
+                data.nextStep;
+
+        }
 
     }
 
+
+    // VERIFICATION
 
     if (
         infoBoxes.length > 1 &&
@@ -364,15 +496,25 @@ function displayAIResult(data) {
         const secondInfo =
             infoBoxes[1];
 
+        const strong =
+            secondInfo.querySelector("strong");
 
-        secondInfo.querySelector("strong")
-            .textContent =
-            "Verification";
+        const paragraph =
+            secondInfo.querySelector("p");
 
+        if (strong) {
 
-        secondInfo.querySelector("p")
-            .textContent =
-            data.verification;
+            strong.textContent =
+                "Verification";
+
+        }
+
+        if (paragraph) {
+
+            paragraph.textContent =
+                data.verification;
+
+        }
 
     }
 
@@ -383,169 +525,276 @@ function displayAIResult(data) {
 // TEXT REQUEST → AI
 // ========================================
 
-continueBtn.addEventListener(
-    "click",
-    async function () {
+const userRequest =
+    document.getElementById("userRequest");
 
 
-        const request =
-            document
-                .getElementById("userRequest")
-                .value
-                .trim();
+if (continueBtn) {
+
+    continueBtn.addEventListener(
+        "click",
+        async function () {
+
+            const request =
+                userRequest
+                    ? userRequest.value.trim()
+                    : "";
+
+            if (request === "") {
+
+                alert(
+                    "Please type or speak what you need help with."
+                );
+
+                return;
+
+            }
+
+            continueBtn.disabled = true;
+
+            continueBtn.textContent =
+                "Understanding your request...";
 
 
-        if (request === "") {
-
-            alert(
-                "Please tell us what you need help with."
-            );
-
-            return;
-
-        }
+            const aiResult =
+                await getAIGuidance(request);
 
 
-        // Change button while AI is working
+            continueBtn.disabled = false;
 
-        continueBtn.disabled = true;
-
-        continueBtn.textContent =
-            "Understanding your request...";
+            continueBtn.textContent =
+                "Continue →";
 
 
-        // Call backend
-
-        const aiResult =
-            await getAIGuidance(request);
-
-
-        // Restore button
-
-        continueBtn.disabled = false;
-
-        continueBtn.textContent =
-            "Continue →";
-
-
-        // Show result
-
-        displayAIResult(aiResult);
-
-    }
-);
-
-
-// ========================================
-// QUESTIONS → FINDER
-// ========================================
-
-backFinder.addEventListener(
-    "click",
-    function () {
-
-        showPage(finder);
-
-    }
-);
-
-
-// ========================================
-// QUESTIONS → RESULTS
-// ========================================
-
-findBtn.addEventListener(
-    "click",
-    function () {
-
-
-        const education =
-            document
-                .getElementById("education")
-                .value;
-
-
-        const state =
-            document
-                .getElementById("state")
-                .value;
-
-
-        if (education === "") {
-
-            alert(
-                "Please select your education level."
-            );
-
-            return;
+            displayAIResult(aiResult);
 
         }
+    );
+
+}
 
 
-        if (state === "") {
+// ========================================
+// 🎤 VOICE INPUT
+// ========================================
 
-            alert(
-                "Please select your state."
-            );
+function setupVoiceInput() {
 
-            return;
+    if (!userRequest) {
+
+        console.warn(
+            "userRequest element was not found."
+        );
+
+        return;
+
+    }
+
+
+    const SpeechRecognition =
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition;
+
+
+    if (!SpeechRecognition) {
+
+        console.warn(
+            "Speech recognition is not supported in this browser."
+        );
+
+        return;
+
+    }
+
+
+    // Prevent duplicate microphone buttons
+
+    if (
+        document.getElementById("voiceBtn")
+    ) {
+
+        return;
+
+    }
+
+
+    // CREATE MICROPHONE BUTTON
+
+    const voiceButton =
+        document.createElement("button");
+
+    voiceButton.type =
+        "button";
+
+    voiceButton.id =
+        "voiceBtn";
+
+    voiceButton.textContent =
+        "🎤 Speak";
+
+    voiceButton.setAttribute(
+        "aria-label",
+        "Speak your request"
+    );
+
+
+    // BUTTON STYLE
+
+    voiceButton.style.marginTop =
+        "10px";
+
+    voiceButton.style.padding =
+        "12px 18px";
+
+    voiceButton.style.border =
+        "none";
+
+    voiceButton.style.borderRadius =
+        "10px";
+
+    voiceButton.style.cursor =
+        "pointer";
+
+    voiceButton.style.fontSize =
+        "15px";
+
+
+    // ADD BUTTON
+
+    if (userRequest.parentNode) {
+
+        userRequest.parentNode.insertBefore(
+            voiceButton,
+            userRequest.nextSibling
+        );
+
+    }
+
+
+    // SPEECH RECOGNITION
+
+    const recognition =
+        new SpeechRecognition();
+
+
+    recognition.continuous =
+        false;
+
+    recognition.interimResults =
+        false;
+
+    recognition.lang =
+        "en-IN";
+
+
+    // START LISTENING
+
+    voiceButton.addEventListener(
+        "click",
+        function () {
+
+            try {
+
+                recognition.start();
+
+                voiceButton.textContent =
+                    "🔴 Listening...";
+
+                voiceButton.disabled =
+                    true;
+
+            } catch (error) {
+
+                console.log(
+                    "Voice recognition:",
+                    error
+                );
+
+            }
 
         }
+    );
 
 
-        showPage(results);
+    // SPEECH RESULT
 
-    }
-);
+    recognition.addEventListener(
+        "result",
+        function (event) {
+
+            const transcript =
+                event.results[0][0].transcript;
+
+            userRequest.value =
+                transcript;
+
+            voiceButton.textContent =
+                "🎤 Speak";
+
+            voiceButton.disabled =
+                false;
+
+        }
+    );
+
+
+    // SPEECH END
+
+    recognition.addEventListener(
+        "end",
+        function () {
+
+            voiceButton.textContent =
+                "🎤 Speak";
+
+            voiceButton.disabled =
+                false;
+
+        }
+    );
+
+
+    // SPEECH ERROR
+
+    recognition.addEventListener(
+        "error",
+        function (event) {
+
+            console.error(
+                "Voice recognition error:",
+                event.error
+            );
+
+            voiceButton.textContent =
+                "🎤 Speak";
+
+            voiceButton.disabled =
+                false;
+
+
+            if (
+                event.error === "not-allowed"
+            ) {
+
+                alert(
+                    "Please allow microphone permission and try again."
+                );
+
+            }
+
+        }
+    );
+
+}
 
 
 // ========================================
-// RESULTS → QUESTIONS
+// START VOICE FEATURE
 // ========================================
 
-backQuestions.addEventListener(
-    "click",
-    function () {
-
-        showPage(questions);
-
-    }
-);
+setupVoiceInput();
 
 
 // ========================================
-// RESULTS → DETAILS
+// END OF SEVAGUIDE SCRIPT
 // ========================================
-
-detailsBtn.addEventListener(
-    "click",
-    function () {
-
-        showPage(details);
-
-    }
-);
-
-
-detailsBtn2.addEventListener(
-    "click",
-    function () {
-
-        showPage(details);
-
-    }
-);
-
-
-// ========================================
-// DETAILS → RESULTS
-// ========================================
-
-backResults.addEventListener(
-    "click",
-    function () {
-
-        showPage(results);
-
-    }
-);
