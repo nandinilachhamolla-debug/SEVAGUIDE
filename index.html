@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Government Services Made Simple</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            🇮🇳 SevaGuide
+        </div>
+
+        <div class="prototype-label">
+            Independent Hackathon Prototype
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         HOME
+    ========================== -->
+
+    <section id="home" class="page active">
+
+        <div class="hero">
+
+            <div class="hero-content">
+
+                <p class="eyebrow">
+                    GOVERNMENT SERVICES MADE SIMPLE
+                </p>
+
+                <h1>
+                    Find the right service,
+                    <span>without the confusion.</span>
+                </h1>
+
+                <p class="description">
+
+                    Tell us what you need in simple words.
+                    We'll guide you to the relevant government
+                    service and explain the next steps.
+
+                </p>
+
+                <button
+                    class="primary-btn"
+                    id="startBtn">
+
+                    Find a Service →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SERVICE FINDER
+    ========================== -->
+
+    <section id="finder" class="page">
+
+        <div class="finder-container">
+
+            <button
+                class="back-btn"
+                id="backHome">
+
+                ← Back
+
+            </button>
+
+            <p class="eyebrow">
+                STEP 1 OF 4
+            </p>
+
+            <h2>
+                What do you need help with?
+            </h2>
+
+            <p class="section-description">
+
+                Tell us in your own words,
+                or choose a service below.
+
+            </p>
+
+
+            <div class="input-area">
+
+                <textarea
+                    id="userRequest"
+                    placeholder="Example: I am a college student looking for a scholarship..."></textarea>
+
+                <button
+                    class="primary-btn"
+                    id="continueBtn">
+
+                    Continue →
+
+                </button>
+
+            </div>
+
+
+            <div class="divider">
+
+                <span>
+                    OR CHOOSE A SERVICE
+                </span>
+
+            </div>
+
+
+            <div class="service-grid">
+
+
+                <button
+                    class="service-card"
+                    data-service="scholarship">
+
+                    <div class="service-icon">
+                        🎓
+                    </div>
+
+                    <h3>
+                        Education & Scholarships
+                    </h3>
+
+                    <p>
+                        Find scholarship information and
+                        understand the next steps.
+                    </p>
+
+                </button>
+
+
+                <button
+                    class="service-card"
+                    data-service="certificate">
+
+                    <div class="service-icon">
+                        📄
+                    </div>
+
+                    <h3>
+                        Certificates
+                    </h3>
+
+                    <p>
+                        Understand which certificate you
+                        may need and how to proceed.
+                    </p>
+
+                </button>
+
+
+                <button
+                    class="service-card"
+                    data-service="employment">
+
+                    <div class="service-icon">
+                        💼
+                    </div>
+
+                    <h3>
+                        Employment
+                    </h3>
+
+                    <p>
+                        Find relevant public employment
+                        services and information.
+                    </p>
+
+                </button>
+
+
+                <button
+                    class="service-card"
+                    data-service="financial">
+
+                    <div class="service-icon">
+                        💰
+                    </div>
+
+                    <h3>
+                        Financial Support
+                    </h3>
+
+                    <p>
+                        Explore relevant government
+                        support information.
+                    </p>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         QUESTIONS
+    ========================== -->
+
+    <section id="questions" class="page">
+
+        <div class="question-container">
+
+            <button
+                class="back-btn"
+                id="backFinder">
+
+                ← Back
+
+            </button>
+
+            <p class="eyebrow">
+                STEP 2 OF 4
+            </p>
+
+            <h2>
+                Let's find relevant scholarship information.
+            </h2>
+
+            <p class="section-description">
+
+                We only need a few basic details to
+                narrow down potentially relevant options.
+
+            </p>
+
+
+            <div class="question-card">
+
+                <label for="education">
+
+                    What is your current education level?
+
+                </label>
+
+                <select id="education">
+
+                    <option value="">
+                        Select education level
+                    </option>
+
+                    <option value="school">
+                        School
+                    </option>
+
+                    <option value="undergraduate">
+                        Undergraduate / B.Tech
+                    </option>
+
+                    <option value="postgraduate">
+                        Postgraduate
+                    </option>
+
+                </select>
+
+
+                <label for="state">
+
+                    Which state are you studying in?
+
+                </label>
+
+                <select id="state">
+
+                    <option value="">
+                        Select state
+                    </option>
+
+                    <option value="telangana">
+                        Telangana
+                    </option>
+
+                    <option value="andhra">
+                        Andhra Pradesh
+                    </option>
+
+                    <option value="other">
+                        Other
+                    </option>
+
+                </select>
+
+
+                <button
+                    class="primary-btn full-btn"
+                    id="findBtn">
+
+                    Find Potential Matches →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         RESULTS
+    ========================== -->
+
+    <section id="results" class="page">
+
+        <div class="results-container">
+
+            <button
+                class="back-btn"
+                id="backQuestions">
+
+                ← Back
+
+            </button>
+
+            <p class="eyebrow">
+                STEP 3 OF 4
+            </p>
+
+            <h2>
+                Here are some potentially relevant options.
+            </h2>
+
+            <p class="section-description">
+
+                These options are based on the information
+                you provided. Always verify eligibility
+                on the official source.
+
+            </p>
+
+
+            <div class="demo-notice">
+
+                <strong>
+                    🧪 Prototype information
+                </strong>
+
+                <p>
+
+                    This demonstration uses synthetic data.
+                    Eligibility must be verified on the official
+                    government source.
+
+                </p>
+
+            </div>
+
+
+            <!-- RESULT 1 -->
+
+            <div class="result-card">
+
+                <div class="result-top">
+
+                    <div>
+
+                        <span class="result-tag">
+                            EDUCATION
+                        </span>
+
+                        <h3>
+                            Higher Education Scholarship
+                        </h3>
+
+                    </div>
+
+                    <div class="match-badge">
+                        Potential Match
+                    </div>
+
+                </div>
+
+
+                <div class="why-match">
+
+                    <h4>
+                        🔍 Why are you seeing this?
+                    </h4>
+
+                    <div class="match-points">
+
+                        <span>
+                            ✓ Undergraduate / B.Tech
+                        </span>
+
+                        <span>
+                            ✓ Telangana
+                        </span>
+
+                        <span>
+                            ✓ Education support
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="result-info">
+
+                    <div>
+
+                        <strong>
+                            Eligibility
+                        </strong>
+
+                        <p>
+                            Review the applicable
+                            education, income and
+                            category requirements.
+                        </p>
+
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Documents
+                        </strong>
+
+                        <p>
+                            Review the documents required
+                            by the official scheme.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="details-btn"
+                    id="detailsBtn">
+
+                    View Details →
+
+                </button>
+
+            </div>
+
+
+            <!-- RESULT 2 -->
+
+            <div class="result-card">
+
+                <div class="result-top">
+
+                    <div>
+
+                        <span class="result-tag">
+                            SCHOLARSHIP
+                        </span>
+
+                        <h3>
+                            Student Support Opportunity
+                        </h3>
+
+                    </div>
+
+                    <div class="match-badge">
+                        Review Eligibility
+                    </div>
+
+                </div>
+
+
+                <div class="why-match">
+
+                    <h4>
+                        🔍 Why are you seeing this?
+                    </h4>
+
+                    <div class="match-points">
+
+                        <span>
+                            ✓ Undergraduate student
+                        </span>
+
+                        <span>
+                            ✓ Selected state
+                        </span>
+
+                        <span>
+                            ✓ Education-related request
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    class="details-btn"
+                    id="detailsBtn2">
+
+                    View Details →
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         DETAILS
+    ========================== -->
+
+    <section id="details" class="page">
+
+        <div class="details-container">
+
+            <button
+                class="back-btn"
+                id="backResults">
+
+                ← Back to Results
+
+            </button>
+
+
+            <p class="eyebrow">
+                STEP 4 OF 4
+            </p>
+
+
+            <h2>
+                Understand the service before you apply.
+            </h2>
+
+
+            <p class="section-description">
+
+                Here's the information you need to
+                understand the next step.
+
+            </p>
+
+
+            <!-- DEMO NOTICE -->
+
+            <div class="demo-notice">
+
+                <strong>
+                    🧪 Prototype / verification required
+                </strong>
+
+                <p>
+
+                    The information below is presented
+                    for demonstration. Always verify the
+                    latest requirements on the official
+                    government source.
+
+                </p>
+
+            </div>
+
+
+            <!-- OVERVIEW -->
+
+            <div class="detail-card">
+
+                <div class="detail-icon">
+                    🎓
+                </div>
+
+                <h3>
+                    Higher Education Scholarship
+                </h3>
+
+                <p>
+
+                    A scholarship-support pathway designed
+                    to help students understand whether a
+                    higher-education scholarship may be
+                    relevant to them.
+
+                </p>
+
+            </div>
+
+
+            <!-- ELIGIBILITY -->
+
+            <div class="detail-card">
+
+                <h3>
+                    👤 Who may be eligible?
+                </h3>
+
+                <ul class="detail-list">
+
+                    <li>
+                        Students pursuing higher education
+                    </li>
+
+                    <li>
+                        Applicants meeting the applicable
+                        scheme requirements
+                    </li>
+
+                    <li>
+                        Additional conditions may apply
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- DOCUMENTS -->
+
+            <div class="detail-card">
+
+                <h3>
+                    📄 Documents to check
+                </h3>
+
+                <ul class="detail-list">
+
+                    <li>
+                        Academic records
+                    </li>
+
+                    <li>
+                        Identity / supporting documents
+                        where officially required
+                    </li>
+
+                    <li>
+                        Income or category documents
+                        where applicable
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!-- STEPS -->
+
+            <div class="detail-card">
+
+                <h3>
+                    🪜 What to do next
+                </h3>
+
+
+                <div class="steps">
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            1
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Check official eligibility
+                            </strong>
+
+                            <p>
+                                Confirm that you satisfy
+                                the latest scheme requirements.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            2
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Prepare documents
+                            </strong>
+
+                            <p>
+                                Keep the documents requested
+                                by the official service ready.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="step">
+
+                        <div class="step-number">
+                            3
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Apply through the official source
+                            </strong>
+
+                            <p>
+                                Continue to the official
+                                government website.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- OFFICIAL SOURCE -->
+
+            <div class="official-card">
+
+                <div>
+
+                    <span class="official-label">
+                        OFFICIAL SOURCE
+                    </span>
+
+                    <h3>
+                        National Scholarship Portal
+                    </h3>
+
+                    <p>
+                        Verify the latest scholarship
+                        information and application process
+                        on the official portal.
+                    </p>
+
+                </div>
+
+
+                <a
+                    class="official-btn"
+                    href="https://scholarships.gov.in/"
+                    target="_blank"
+                    rel="noopener noreferrer">
+
+                    Visit Official Portal ↗
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================== -->
+
+    <footer>
+
+        <p>
+
+            This is an independent prototype and is not
+            an official government website.
+
+        </p>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
